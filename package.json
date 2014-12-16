@@ -1,0 +1,24 @@
+{
+  "name": "grunt-spamcheck",
+  "version": "0.0.1",
+  "description": "Spam check your emails using Postmark's API",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-mocha-test": "^0.12.4",
+    "mocha": "^2.0.1"
+  },
+  "author": "Derek Rushforth <derekrushforth@gmail.com> (http://derekrushforth.com/)",
+  "keywords": [
+    "gruntplugin",
+    "postmark",
+    "spamcheck",
+    "spam"
+  ],
+  "license": "ISC"
+}
