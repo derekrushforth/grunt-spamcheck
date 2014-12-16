@@ -20,8 +20,9 @@ module.exports = function(grunt) {
 			// TODO: validate options
 			// TODO: insert defaults
 
+			// TODO: report should probably be a boolean instead of string
 			var requestOptions = {
-				options: _data.options || options.options
+				options: _data.report || options.report
 			};
 
 			if (this.filesSrc.length > 1) {
@@ -35,6 +36,7 @@ module.exports = function(grunt) {
 					} else {
 						// TODO: colorize score based on number
 						grunt.log.writeln('Spam check score: ✓ ' + response.score);
+						grunt.log.writeln(JSON.stringify(response.report));
 					}
 					done();
 				});
