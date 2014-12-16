@@ -7,7 +7,6 @@ var obj = {
 	options: 'short'
 };
 
-
 describe('spamcheck', function() {
 	this.timeout(30000);
 

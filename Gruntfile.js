@@ -20,14 +20,6 @@ module.exports = function(grunt) {
     },
 
 
-    /* Spamcheck
-    ------------------------------------------------- */
-    spamcheck: {
-      test: {
-        src: ['test/email.html']
-      }
-    },
-
     /* Mocha Tests
     ------------------------------------------------- */
     mochaTest: {
@@ -35,7 +27,17 @@ module.exports = function(grunt) {
       options: {
         reporter: 'spec'
       }
-    }
+    },
+
+
+    /* Spamcheck
+    ------------------------------------------------- */
+    spamcheck: {
+      test: {
+        options: 'short',
+        src: ['emails/template1.html']
+      }
+    },
 
   });
 
