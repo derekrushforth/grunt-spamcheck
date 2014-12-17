@@ -35,8 +35,7 @@ Options: `short`, `long`
 
 
 ## Examples
-
-### Options specified through target
+This currently only supports a single template to be passed in.
 
 ```javascript
 grunt.initConfig({
