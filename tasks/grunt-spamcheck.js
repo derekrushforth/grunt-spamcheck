@@ -17,12 +17,8 @@ module.exports = function(grunt) {
 
 		if (this.files.length > 0) {
 
-			// TODO: validate options
-			// TODO: insert defaults
-
-			// TODO: report should probably be a boolean instead of string
 			var requestOptions = {
-				options: _data.report || options.report
+				options: _data.report || options.report || 'short'
 			};
 
 			if (this.filesSrc.length > 1) {
@@ -35,8 +31,20 @@ module.exports = function(grunt) {
 						grunt.log.warn('Error response: ' + JSON.stringify(err));
 					} else {
 						// TODO: colorize score based on number
-						grunt.log.writeln('Spam check score: ✓ ' + response.score);
-						grunt.log.writeln(JSON.stringify(response.report));
+						var color = (response.score > 5) ? 'green' : 'red',
+								icon = (response.score > 5) ? '✓' : '✖';
+
+						grunt.log.write('Spam check score: '['white'].bold);
+						grunt.log.write(icon[color]);
+						grunt.log.write(' ' + response.score[color].bold);
+
+						// Show long report
+						if (requestOptions.options === 'long') {
+							grunt.log.writeln('');
+							grunt.log.writeln('Report:'['white'].bold);
+							grunt.log.writeln(response.report);
+						}
+						
 					}
 					done();
 				});
