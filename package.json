@@ -4,7 +4,7 @@
   "description": "Spam check your emails using Postmark's API",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "mocha"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
