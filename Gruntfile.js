@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     /* Spamcheck
     ------------------------------------------------- */
     spamcheck: {
-      test: {
+      template: {
         report: 'long',
         src: ['emails/template1.html']
       }
