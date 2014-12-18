@@ -1,6 +1,6 @@
 {
   "name": "grunt-spamcheck",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Spam check your emails using Postmark's API",
   "main": "Gruntfile.js",
   "scripts": {

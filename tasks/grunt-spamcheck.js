@@ -36,6 +36,8 @@ module.exports = function(grunt) {
                 icon = figures[getIcon(response.score)],
                 scoreColor = getColor(response.score);
 
+            // TODO: Message based on score
+
             // Write score
             grunt.log.writeln('');
             grunt.log.write(chalk.bold.white('Spamcheck Score: '));
@@ -67,8 +69,8 @@ module.exports = function(grunt) {
 
     // TODO: need tests
     function createGraph(text, amount, tick) {
-      var colors = ['red', 'yellow', 'green'],
-          bgColors = ['bgRed', 'bgYellow', 'bgGreen'],
+      var colors = ['green', 'yellow', 'red'],
+          bgColors = ['bgGreen', 'bgYellow', 'bgRed'],
           tickLength = getTick(amount, tick),
           current = 0;
 
@@ -101,12 +103,12 @@ module.exports = function(grunt) {
     }
 
     function getColor(tick) {
-      var colors = ['red', 'yellow', 'green'];
+      var colors = ['green', 'yellow', 'red'];
       return colors[Math.round(tick/colors.length) - 1];
     }
 
     function getIcon(tick) {
-      var icons = ['cross', 'warning', 'tick'];
+      var icons = ['tick', 'warning', 'cross'];
       return icons[Math.round(tick/icons.length) - 1];
     }
 
