@@ -23,7 +23,7 @@ grunt.loadNpmTasks('grunt-spamcheck');
 ## Spamcheck task
 _Run this task with the `grunt spamcheck` command._
 
-[![grunt-spamcheck](https://cl.ly/image/0a3s2y1J3f3s)](https://www.npmjs.com/package/grunt-spamcheck)
+![grunt-spamcheck](grunt-spamcheck.png?raw=true)
 
 ## Options
 
