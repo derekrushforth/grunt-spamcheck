@@ -32,8 +32,8 @@ module.exports = function(grunt) {
           if (err) {
             grunt.log.warn('Error response: ' + JSON.stringify(err));
           } else {
-            var icon = (response.score > 5) ? figures.tick : figures.cross,
-                squares = createGraph(figures.square, 40, response.score),
+            var squares = createGraph(figures.square, 40, response.score),
+                icon = figures[getIcon(response.score)],
                 scoreColor = getColor(response.score);
 
             // Write score
@@ -103,6 +103,11 @@ module.exports = function(grunt) {
     function getColor(tick) {
       var colors = ['red', 'yellow', 'green'];
       return colors[Math.round(tick/colors.length) - 1];
+    }
+
+    function getIcon(tick) {
+      var icons = ['cross', 'warning', 'tick'];
+      return icons[Math.round(tick/icons.length) - 1];
     }
 
   });
