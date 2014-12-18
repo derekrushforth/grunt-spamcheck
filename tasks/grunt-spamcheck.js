@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     if (this.files.length > 0) {
 
       var requestOptions = {
-        options: _data.report || options.report || 'short'
+        options: _data.report || options.report || 'long'
       };
 
       if (this.filesSrc.length > 1) {
@@ -50,7 +50,8 @@ module.exports = function(grunt) {
             // Show long report
             if (requestOptions.options === 'long') {
               grunt.log.writeln('');
-              grunt.log.writeln(chalk.bold.white('Report: '));
+              grunt.log.writeln('');
+              grunt.log.writeln('---- ---------------------- --------------------------------------------------');
               grunt.log.writeln(response.report);
             }
             

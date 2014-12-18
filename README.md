@@ -30,7 +30,7 @@ _Run this task with the `grunt spamcheck` command._
 Specifies whether you would like more detailed reporting.
 
 Type: `String`
-Default: `short`
+Default: `long`
 Options: `short`, `long`
 
 ### hideGraph
