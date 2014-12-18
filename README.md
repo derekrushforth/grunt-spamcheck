@@ -33,6 +33,12 @@ Type: `String`
 Default: `short`
 Options: `short`, `long`
 
+### hideGraph
+Specifies whether you want to hide the score graph.
+
+Type: `Boolean`
+Default: `false`
+
 
 ## Examples
 This currently only supports a single template to be passed in.
