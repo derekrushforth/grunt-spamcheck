@@ -1,4 +1,4 @@
-# grunt-spamcheck v0.0.8
+# grunt-spamcheck v0.0.9
 
 [![Code Climate](https://codeclimate.com/github/derekrushforth/grunt-spamcheck/badges/gpa.svg)](https://codeclimate.com/github/derekrushforth/grunt-spamcheck)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
@@ -28,17 +28,17 @@ _Run this task with the `grunt spamcheck` command._
 ## Options
 
 ### report
-Specifies whether you would like more detailed reporting.
-
 Type: `String`
 Default: `long`
 Options: `short`, `long`
 
-### hideGraph
-Specifies whether you want to hide the score graph.
+Specifies whether you would like more detailed reporting.
 
+### hideGraph
 Type: `Boolean`
 Default: `false`
+
+Specifies whether you want to hide the score graph.
 
 
 ## Examples
