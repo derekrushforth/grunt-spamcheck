@@ -56,7 +56,7 @@ module.exports = function(grunt) {
                 symbol: createGraph(figures.square, 40, response.score),
                 icon: figures[getIcon(response.score)],
                 scoreColor: getColor(response.score)
-              }
+              };
 
               logResults(logOptions);
             }
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
               symbol: createGraph(figures.square, 40, response.score),
               icon: figures[getIcon(response.score)],
               scoreColor: getColor(response.score)
-            }
+            };
 
             logResults(logOptions);
           }
