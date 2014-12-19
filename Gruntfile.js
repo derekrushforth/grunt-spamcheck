@@ -34,7 +34,7 @@ module.exports = function(grunt) {
     ------------------------------------------------- */
     spamcheck: {
       template: {
-        src: ['emails/template1.html']
+        src: ['emails/template1.html', 'emails/template2.html', 'emails/template3.html']
       }
     },
 

@@ -1,4 +1,4 @@
-# grunt-spamcheck v0.0.7
+# grunt-spamcheck v0.0.8
 
 [![Code Climate](https://codeclimate.com/github/derekrushforth/grunt-spamcheck/badges/gpa.svg)](https://codeclimate.com/github/derekrushforth/grunt-spamcheck)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
@@ -42,14 +42,13 @@ Default: `false`
 
 
 ## Examples
-This currently only supports a single template to be passed in.
 
 ```javascript
 grunt.initConfig({
   spamcheck: {
-    template: {
+    emails: {
       report: 'long',
-      src: ['emails/template1.html']
+      src: ['emails/template1.html', 'emails/template2.html', 'emails/template3.html']
     }
   }
 });
