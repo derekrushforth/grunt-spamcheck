@@ -18,6 +18,16 @@ module.exports = function(grunt) {
         options = this.options(),
         _data = this.data;
 
+    // Graph and score settings
+    var colors = ['green', 'yellow', 'red'],
+        bgColors = ['bgGreen', 'bgYellow', 'bgRed'],
+        icons = ['tick', 'warning', 'cross'],
+        maxScore = 15,
+        graphLength = 15,
+        graphLegend = {
+          score: []
+        };
+
     if (this.files.length > 0) {
 
       var requestOptions = {
@@ -53,7 +63,7 @@ module.exports = function(grunt) {
                 data: _data,
                 response: response,
                 requestOpts: requestOptions,
-                symbol: createGraph(figures.square, 40, response.score),
+                symbol: createGraph(figures.square, response.score),
                 icon: figures[getIcon(response.score)],
                 scoreColor: getColor(response.score)
               };
@@ -76,7 +86,7 @@ module.exports = function(grunt) {
               data: _data,
               response: response,
               requestOpts: requestOptions,
-              symbol: createGraph(figures.square, 40, response.score),
+              symbol: createGraph(figures.square, response.score),
               icon: figures[getIcon(response.score)],
               scoreColor: getColor(response.score)
             };
@@ -94,6 +104,7 @@ module.exports = function(grunt) {
 
     function logResults(options) {
       // TODO: Message based on score
+
       // Write score
       grunt.log.writeln(chalk.bold.white(options.name));
       grunt.log.write(chalk.bold.white('Spamcheck Score: '));
@@ -115,20 +126,26 @@ module.exports = function(grunt) {
     }
 
     // TODO: need tests
-    function createGraph(text, amount, tick) {
-      var colors = ['green', 'yellow', 'red'],
-          bgColors = ['bgGreen', 'bgYellow', 'bgRed'],
-          tickLength = getTick(amount, tick),
-          current = 0;
-
-      var val = '';
+    function createGraph(text, tick) {
+      
+      var tickLength = getTick(tick),
+          current = 0,
+          val = '';
 
       for (var i=0; i < colors.length; i++) {
         var color = colors[i],
             bg = bgColors[i];
 
-        for (var x=0; x < amount/colors.length; x++) {
+        for (var x=0; x < graphLength/colors.length; x++) {
           current++;
+
+          var obj = {
+            score: current,
+            color: color,
+            icon: icons[i]
+          };
+
+          graphLegend.score.push(obj);
 
           if (current === tickLength) {
             val += chalk.white.bgWhite(figures.square);
@@ -141,20 +158,27 @@ module.exports = function(grunt) {
       return val;
     }
 
-    function getTick(amount, tick) {
-      var percent = (tick / 10) * 100,
-          val = Math.round((percent/100)*amount);
+    function getTick(tick) {
+      if (tick > maxScore) { return graphLength; }
+
+      var percent = (tick / maxScore) * 100,
+          val = Math.round((percent/100)*graphLength);
+          
       return val;
     }
 
     function getColor(tick) {
-      var colors = ['green', 'yellow', 'red'];
-      return colors[Math.round(tick/colors.length) - 1];
+      if (tick > maxScore) { return colors[2]; }
+
+      var scoreOptions = graphLegend.score[getTick(tick)-1];
+      return scoreOptions.color;
     }
 
     function getIcon(tick) {
-      var icons = ['tick', 'warning', 'cross'];
-      return icons[Math.round(tick/icons.length) - 1];
+      if (tick > maxScore) { return icons[2]; }
+
+      var scoreOptions = graphLegend.score[getTick(tick)-1];
+      return scoreOptions.icon;
     }
 
     function clone(obj) {
