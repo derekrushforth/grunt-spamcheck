@@ -28,17 +28,21 @@ _Run this task with the `grunt spamcheck` command._
 ## Options
 
 ### report
+_Specifies whether you would like more detailed reporting._
+
 Type: `String`
+
 Default: `long`
+
 Options: `short`, `long`
 
-Specifies whether you would like more detailed reporting.
 
 ### hideGraph
-Type: `Boolean`
-Default: `false`
+_Specifies whether you want to hide the score graph._
 
-Specifies whether you want to hide the score graph.
+Type: `Boolean`
+
+Default: `false`
 
 
 ## Examples
