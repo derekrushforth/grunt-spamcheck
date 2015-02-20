@@ -130,7 +130,6 @@ module.exports = function(grunt) {
 
         for (var x=0; x < graphLength/colors.length; x++) {
           current++;
-          //console.log(current);
 
           var obj = {
             score: current,
@@ -163,7 +162,6 @@ module.exports = function(grunt) {
     function getColor(score) {
       if (score == 0) { return colors[0]; }
       if (score > maxScore) { return colors[2]; }
-      console.log(graphLegend);
       return graphLegend.score[score-1].color;
     }
 
