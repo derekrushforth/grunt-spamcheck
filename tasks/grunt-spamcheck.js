@@ -49,53 +49,21 @@ module.exports = function(grunt) {
 
         // Iterate through templates
         templates.forEach(function(item) {
+          // Create request options
           var _requestOptions = clone(requestOptions);
           _requestOptions.email = item.content;
+          _requestOptions.file = item.file;
 
-          spamcheck.getScore(_requestOptions, function(err, response) {
-            if (err) {
-              grunt.log.warn('Error response: ' + JSON.stringify(err));
-            } else {
-              
-              // Create logging options
-              var logOptions = {
-                name: item.file,
-                data: _data,
-                response: response,
-                requestOpts: requestOptions,
-                symbol: createGraph(figures.square, response.score),
-                icon: figures[getIcon(response.score)],
-                scoreColor: getColor(response.score)
-              };
-
-              logResults(logOptions);
-            }
-          });
+          // Make request
+          apiRequest(_requestOptions);
         });
       } else {
+        // Create request options
         requestOptions.email = grunt.file.read(this.filesSrc);
+        requestOptions.file = this.filesSrc;
 
-        spamcheck.getScore(requestOptions, function(err, response) {
-          if (err) {
-            grunt.log.warn('Error response: ' + JSON.stringify(err));
-          } else {
-            
-            // Create logging options
-            var logOptions = {
-              name: that.filesSrc,
-              data: _data,
-              response: response,
-              requestOpts: requestOptions,
-              symbol: createGraph(figures.square, response.score),
-              icon: figures[getIcon(response.score)],
-              scoreColor: getColor(response.score)
-            };
-
-            logResults(logOptions);
-          }
-          done();
-        });
-
+        // Make request
+        apiRequest(requestOptions);
       }
     
     } else {
@@ -125,11 +93,35 @@ module.exports = function(grunt) {
       }
     }
 
-    // TODO: need tests
-    function createGraph(text, tick) {
+    function apiRequest(requestOptions) {
+      spamcheck.getScore(requestOptions, function(err, response) {
+        if (err) {
+          grunt.log.warn('Error response: ' + JSON.stringify(err));
+        } else {
+          //TESTSSTSTS
+          //response.score = 12;
+          logResults(generateOptions(response, requestOptions));
+        }
+      });
+    }
+
+    function generateOptions(response, requestOptions) {
+      var opts = {
+        name: requestOptions.file,
+        data: _data,
+        response: response,
+        requestOpts: requestOptions,
+        symbol: createGraph(figures.square, Math.floor(response.score)),
+        icon: figures[getIcon(Math.floor(response.score))],
+        scoreColor: getColor(Math.floor(response.score))
+      };
+
+      return opts;
+    }
+
+    function createGraph(text, score) {
       
-      var tickLength = getTick(tick),
-          current = 0,
+      var current = 0,
           val = '';
 
       for (var i=0; i < colors.length; i++) {
@@ -138,6 +130,7 @@ module.exports = function(grunt) {
 
         for (var x=0; x < graphLength/colors.length; x++) {
           current++;
+          //console.log(current);
 
           var obj = {
             score: current,
@@ -147,9 +140,18 @@ module.exports = function(grunt) {
 
           graphLegend.score.push(obj);
 
-          if (current === tickLength) {
+          // Insert graph color
+          if (score === 0 && current === 1) {
+            // Check for a 0 score
+            val += chalk.white.bgWhite(figures.square);
+          } else if (current === score) {
+            // Check if we are currently on the score
+            val += chalk.white.bgWhite(figures.square);
+          } else if(current === graphLength && score > graphLength) {
+            // If the score exceeds the graph length
             val += chalk.white.bgWhite(figures.square);
           } else {
+            // No match
             val += chalk[color][bg](figures.square);
           }
           
@@ -158,27 +160,17 @@ module.exports = function(grunt) {
       return val;
     }
 
-    function getTick(tick) {
-      if (tick > maxScore) { return graphLength; }
-
-      var percent = (tick / maxScore) * 100,
-          val = Math.round((percent/100)*graphLength);
-          
-      return val;
+    function getColor(score) {
+      if (score == 0) { return colors[0]; }
+      if (score > maxScore) { return colors[2]; }
+      console.log(graphLegend);
+      return graphLegend.score[score-1].color;
     }
 
-    function getColor(tick) {
-      if (tick > maxScore) { return colors[2]; }
-
-      var scoreOptions = graphLegend.score[getTick(tick)-1];
-      return scoreOptions.color;
-    }
-
-    function getIcon(tick) {
-      if (tick > maxScore) { return icons[2]; }
-
-      var scoreOptions = graphLegend.score[getTick(tick)-1];
-      return scoreOptions.icon;
+    function getIcon(score) {
+      if (score == 0) { return icons[0]; }
+      if (score > maxScore) { return icons[2]; }
+      return graphLegend.score[score-1].icon;
     }
 
     function clone(obj) {
